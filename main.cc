@@ -45,7 +45,7 @@ int main(){
 			stone_count-=kamni;
 		else {std::cout<<"Введено неверное количество камней.\n"; goto stonechooze;};
 	if (stone_count==0){
-		std::cout<<"Вы проигрывающий."<<std::endl; return 0;
+		std::cout<<"Вы проигрывающий."<<std::endl; break;
 	} else {
 		unsigned comp;
 		if (kamni==1)
@@ -56,7 +56,7 @@ int main(){
 		comp = std::min(1U,stone_count);
 		std::cout << "Компьютер вытянул "<<comp<<" камней. ";
 		stone_count-=comp;
-		if (stone_count==0){ std::cout<<"Вы выиграли."<<std::endl; return 0;}
+		if (stone_count==0){ std::cout<<"Вы выиграли."<<std::endl; break;}
 	}}
 	return 0;
 }
