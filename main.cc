@@ -44,6 +44,12 @@ int main(){
 	};
 	std::uniform_int_distribution<> d {15, 25};
 	unsigned stone_count = d(rnd);
+	int level;
+	if (mode == 1){
+		level = read_int("Введите уровень сложности (1 - 10):");
+		if (level<1 || level>10){std::cout<<"Неверное значение сложности!"<<std::endl;goto menu;}
+
+	}
 	while (mode == 1){
 	std::cout << "В куче " << stone_count << " камней." << std::endl;
 	stonechooze:
@@ -55,12 +61,18 @@ int main(){
 		std::cout<<"Вы проигрывающий."<<std::endl; break;
 	} else {
 		unsigned comp;
-		if (kamni==1)
-		comp = std::min(3U,stone_count);
-		else if (kamni==2)
-		comp = std::min(2U,stone_count);
-		else if (kamni==3)
-		comp = std::min(1U,stone_count);
+		std::uniform_int_distribution<> lvl {1, 9};
+		std::uniform_int_distribution<> dr {1, std::min(3U,stone_count)};
+
+		if (lvl(rnd)<level){
+			if ( stone_count==1 ) comp=1;
+			else if ( stone_count<4 ) comp=stone_count-1;
+			else if ((stone_count)%3==1) comp=3;
+			else if ((stone_count)%3==2) comp=1;
+			else if ((stone_count)%3==0) comp=2;
+			else comp = dr(rnd);
+		}
+	else comp = dr(rnd);
 		std::cout << "Компьютер вытянул "<<comp<<" камней. ";
 		stone_count-=comp;
 		if (stone_count==0){ std::cout<<"Вы выиграли."<<std::endl; break;}
